@@ -2,8 +2,7 @@
 
 Este projeto é uma interface de usuário (frontend) completa para um sistema de autenticação, construída do zero utilizando React e Vite. Inclui páginas de Login, Cadastro (Sign Up) e uma Home page protegida, tudo gerenciado com React Router.
 
-![Captura de tela da página de login](https-sua-url-da-imagem-aqui.png)
-*(Dica: Para adicionar uma imagem, suba um print da sua tela na aba "Issues" do seu GitHub e copie o link gerado)*
+Tela de login [https://github.com/Maurickson/ecommerce-front-login/issues/1]
 
 ---
 
