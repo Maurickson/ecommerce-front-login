@@ -1,0 +1,66 @@
+/* src/pages/home/Home.css */
+
+/* --- O Cabeçalho (Navbar) --- */
+.home-header {
+  display: flex;
+  justify-content: space-between; /* Itens ficam nas pontas */
+  align-items: center;
+  padding: 15px 40px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #eee;
+}
+
+.home-logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #008080; /* Mesmo azul dos botões */
+  text-decoration: none;
+}
+
+.home-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 20px; /* Espaço entre os links */
+}
+
+.home-nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.home-nav a:hover {
+  color: #008080;
+}
+
+.logout-btn {
+  background-color: transparent;
+  border: 1px solid #d9534f;
+  color: #d9534f;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: #d9534f;
+  color: white;
+}
+
+/* --- Área de Conteúdo Principal --- */
+.home-content {
+  padding: 50px;
+  max-width: 1200px;
+  margin: 0 auto; /* Centraliza o conteúdo */
+}
+
+.home-content h1 {
+  font-size: 32px;
+  color: #2e434f;
+}
