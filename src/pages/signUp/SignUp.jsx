@@ -1,68 +1,170 @@
-// src/pages/signup/SignUp.jsx
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "../../Auth.css";
 
-import React from 'react';
-// 1. IMPORTAMOS O useNavigate
-import { Link, useNavigate } from 'react-router-dom'; 
-import '../../Auth.css'; 
-
-// ... (imports de ícones)
-import { FaGoogle, FaLinkedinIn, FaGithub, FaUserPlus } from 'react-icons/fa'; 
-import { MdEmail, MdLock } from 'react-icons/md'; 
+import { FaGoogle, FaLinkedinIn, FaGithub, FaUserPlus } from "react-icons/fa";
+import { MdEmail, MdLock, MdError } from "react-icons/md";
+import { FaIdCard } from "react-icons/fa";
+import Cookies from "js-cookie";
 
 export function SignUp() {
-  // 2. INICIALIZAMOS O HOOK
   const navigate = useNavigate();
 
-  // 3. CRIAMOS A FUNÇÃO DE SUBMIT
-  const handleSignUpSubmit = (e) => {
-    e.preventDefault(); // Impede o recarregamento
+  // Estados dos campos
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [cpf, setCpf] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState("");
 
-    //
-    // AQUI VIRIA A LÓGICA DE CRIAÇÃO DA CONTA
-    //
+  const handleSignUpSubmit = async (e) => {
+    e.preventDefault();
+    setErrorMessage("");
 
-    // 4. NAVEGAMOS PARA A HOME
-    navigate('/home');
+    if (!name || !email || !password || !cpf) {
+      setErrorMessage("Preencha todos os campos.");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("http://localhost:3001/api/user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          pass: password,
+          cpf: cpf,
+        }),
+      });
+
+      const json = await response.json();
+
+      if (response.ok) {
+        // Salvar token
+        if (json.token) {
+          Cookies.set("token", json.token);
+        }
+
+        // Salvar nome do usuário
+        if (json.name) {
+          localStorage.setItem("nomeUsuario", json.name);
+        }
+
+        navigate("/home");
+      } else {
+        setErrorMessage(json.message || json.error || "Erro ao criar conta.");
+      }
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+      setErrorMessage("Erro de conexão com o servidor.");
+    } finally {
+      setIsLoading(false);
+    }
   };
-
   return (
     <div className="auth-background">
       <div className="form-wrapper">
         <div className="form-container">
-          
-          {/* 5. LIGAMOS A FUNÇÃO AO onSUbmit DO FORMULÁRIO */}
           <form onSubmit={handleSignUpSubmit}>
             <h1>Create Account</h1>
-              <div className="social-icons">
-              <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">
+
+            <div className="social-icons">
+              <a
+                href="https://www.google.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FaGoogle />
               </a>
-              <a href="https://www.linkedin.com/login" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.linkedin.com/login"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FaLinkedinIn />
               </a>
-              <a href="https://www.github.com/login" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.github.com/login"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FaGithub />
               </a>
             </div>
-            <p>or use your email for registration</p>
 
+            {/* Name */}
             <div className="input-group">
-              <span className="input-icon-wrapper"><FaUserPlus className="input-icon" /></span>
-              <input type="text" placeholder="Name" />
+              <span className="input-icon-wrapper">
+                <FaUserPlus className="input-icon" />
+              </span>
+              <input
+                type="text"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </div>
+
+            {/* Email */}
             <div className="input-group">
-              <span className="input-icon-wrapper"><MdEmail className="input-icon" /></span>
-              <input type="email" placeholder="Email" />
+              <span className="input-icon-wrapper">
+                <MdEmail className="input-icon" />
+              </span>
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
+
+            {/* CPF */}
             <div className="input-group">
-              <span className="input-icon-wrapper"><MdLock className="input-icon" /></span>
-              <input type="password" placeholder="Password" />
+              <span className="input-icon-wrapper">
+                <FaIdCard className="input-icon" />
+              </span>
+              <input
+                type="text"
+                placeholder="CPF"
+                value={cpf}
+                onChange={(e) => setCpf(e.target.value)}
+              />
             </div>
-            
-            <button type="submit" className="sign-in-btn">Sign Up</button>
+
+            {/* Password */}
+            <div className="input-group">
+              <span className="input-icon-wrapper">
+                <MdLock className="input-icon" />
+              </span>
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            {/* Mensagem de erro */}
+            {errorMessage && (
+              <div className="error-message">
+                <MdError />
+                <span>{errorMessage}</span>
+              </div>
+            )}
+
+            <button type="submit" className="sign-in-btn" disabled={isLoading}>
+              {isLoading ? "Carregando..." : "Sign Up"}
+            </button>
 
             <span className="switch-auth-link">
-              Já tem uma conta? <Link to="/login"><strong>Faça Login</strong></Link>
+              Já tem uma conta?{" "}
+              <Link to="/login">
+                <strong>Faça Login</strong>
+              </Link>
             </span>
           </form>
         </div>

@@ -1,66 +1,188 @@
-/* src/pages/home/Home.css */
+/* ===========================
+   ESTILO GLOBAL DA HOME
+   Supermercado • Moderno
+=========================== */
 
-/* --- O Cabeçalho (Navbar) --- */
-.home-header {
+:root {
+  --green-main: #15a59e;
+  --green-dark: #0f827d;
+  --blue-accent: #008080;
+  --white: #ffffff;
+  --gray-light: #f4f4f4;
+  --gray-text: #2e434f;
+}
+
+/* ---- CONTAINER PRINCIPAL ---- */
+.home-container {
+  min-height: 100vh;
+  padding: 40px;
+  background: linear-gradient(135deg, #e9fbff, #d5f7e7);
   display: flex;
-  justify-content: space-between; /* Itens ficam nas pontas */
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* ===========================
+      NAVBAR / HEADER
+=========================== */
+.home-header {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--green-main);
+  padding: 12px 18px;
+  border-radius: 18px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 15px 40px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid #eee;
+  color: var(--white);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
 }
-
+/* LOGO */
 .home-logo {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
-  color: #008080; /* Mesmo azul dos botões */
+  color: var(--white);
   text-decoration: none;
+  letter-spacing: 1px;
+  transition: 0.3s;
 }
 
+.home-logo:hover {
+  opacity: 0.85;
+}
+
+/* MENU */
 .home-nav ul {
-  margin: 0;
-  padding: 0;
   list-style: none;
   display: flex;
-  gap: 20px; /* Espaço entre os links */
+  gap: 25px;
 }
 
 .home-nav a {
+  color: white;
   text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  transition: color 0.3s;
+  font-weight: 600;
+  transition: 0.3s;
 }
 
 .home-nav a:hover {
-  color: #008080;
+  color: var(--gray-light);
 }
 
-.logout-btn {
-  background-color: transparent;
-  border: 1px solid #d9534f;
-  color: #d9534f;
-  padding: 8px 16px;
-  border-radius: 20px;
+/* USER AREA */
+.user-area {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+/* Foto + nome */
+#user-info {
+  display: flex;
+  align-items: center;
+  color: white;
+  gap: 10px;
+}
+
+#user-info button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid white;
+  padding: 0;
+  background: transparent;
   cursor: pointer;
+}
+
+#user-info img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Botão Sair */
+.logout-btn {
+  background: transparent;
+  border: 2px solid white;
+  padding: 8px 20px;
+  border-radius: 25px;
+  color: white;
   font-weight: bold;
-  transition: all 0.3s;
+  transition: 0.3s;
+  cursor: pointer;
 }
 
 .logout-btn:hover {
-  background-color: #d9534f;
-  color: white;
+  background: #d9534f;
+  border-color: #d9534f;
 }
 
-/* --- Área de Conteúdo Principal --- */
+/* ===========================
+         CONTEÚDO
+=========================== */
+
 .home-content {
-  padding: 50px;
+  background: white;
+  padding: 35px;
+  border-radius: 25px;
   max-width: 1200px;
-  margin: 0 auto; /* Centraliza o conteúdo */
+  margin: 0 auto;
+  width: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 .home-content h1 {
+  color: var(--green-main);
   font-size: 32px;
-  color: #2e434f;
+  margin-bottom: 10px;
 }
+
+.home-content p {
+  font-size: 18px;
+  color: var(--gray-text);
+  margin-bottom: 25px;
+}
+
+/* ===========================
+   TABELA DE PRODUTOS
+=========================== */
+
+.zebra-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 18px;
+  background: white;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+}
+
+.zebra-table th {
+  background: var(--green-main);
+  color: white;
+  padding: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+}
+
+.zebra-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #efefef;
+}
+
+/* Efeito zebrado */
+.zebra-table tr:nth-child(even) {
+  background: #f7fafa;
+}
+
+/* Hover */
+.zebra-table tr:hover {
+  background: #def7f2;
+  cursor: pointer;
+}
+
+/* ===========================
+   FIM
+=========================== */

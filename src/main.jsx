@@ -1,15 +1,13 @@
 // src/main.jsx
 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import App from './App.jsx';
-import { Login } from './pages/login/Login';
-import { SignUp } from './pages/signUp/SignUp.jsx';
-import { Home } from './pages/home/Home';
-
-import './index.css'; // Nosso CSS global limpo
+import App from "./App.jsx";
+import { Login } from "./pages/login/Login";
+import { SignUp } from "./pages/signUp/SignUp.jsx";
+import { Home } from "./pages/home/Home";
 
 // Aqui definimos as rotas
 const router = createBrowserRouter([
@@ -45,7 +43,7 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>
